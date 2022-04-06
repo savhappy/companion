@@ -23,21 +23,7 @@ const Main = ({ navigation }) => {
       <View style={styles.topContainer}>
         <SmCompanionIcon />
       </View>
-      <Modal visible={modalOpen} animationType="slide">
-        <View style={styles.modalContent}>
-          <Text style={[styles.mainHeader, { fontSize: 24 }]}>
-            Check-In Card
-          </Text>
-          <MainFormCard />
-          <TouchableOpacity
-            style={styles.checkInBtn}
-            name="close"
-            onPress={() => setModalOpen(false)}
-          >
-            <Text style={styles.checkInBtnText}>Create Card</Text>
-          </TouchableOpacity>
-        </View>
-      </Modal>
+      <MainFormCard modalOpen={modalOpen} setModalOpen={setModalOpen} />
       <View style={styles.mainCard}>
         <Text style={styles.mainHeader}>Check-in By:</Text>
         <View style={styles.innerBox}>

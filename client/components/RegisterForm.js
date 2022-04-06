@@ -6,11 +6,14 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useState } from 'react';
 import { Formik } from 'formik';
+import { UserContext } from '../services/context';
 
 const RegisterForm = ({ navigation }) => {
+  const { setUser } = useContext(UserContext);
+
   return (
     <View>
       <Formik
@@ -22,6 +25,7 @@ const RegisterForm = ({ navigation }) => {
           phoneNumber: '',
         }}
         onSubmit={() => {
+          setUser({ firstName, LastName });
           navigation.navigate('Profile');
         }}
       >
