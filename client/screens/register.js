@@ -1,9 +1,12 @@
 import { View, Text, SafeAreaView, StyleSheet } from 'react-native';
-import React from 'react';
+import React, { useContext } from 'react';
 import SmCompanionIcon from '../sm-companion-icon';
 import RegisterForm from '../components/RegisterForm';
+import { UserContext } from '../services/context';
 
 const Register = ({ navigation }) => {
+  const { setUser } = useContext(UserContext);
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={[styles.topContainer, { alignItems: 'flex-start' }]}>

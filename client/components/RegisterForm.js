@@ -10,9 +10,10 @@ import React, { useContext } from 'react';
 import { useState } from 'react';
 import { Formik } from 'formik';
 import { UserContext } from '../services/context';
+import methods from '../services/apiServices';
 
 const RegisterForm = ({ navigation }) => {
-  const { setUser } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
 
   return (
     <View>
@@ -24,8 +25,9 @@ const RegisterForm = ({ navigation }) => {
           password: '',
           phoneNumber: '',
         }}
-        onSubmit={() => {
-          setUser({ firstName, LastName });
+        onSubmit={(values) => {
+          setUser(values);
+          // await methods.userRegister(user);
           navigation.navigate('Profile');
         }}
       >

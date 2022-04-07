@@ -1,18 +1,25 @@
 import { View, Text, SafeAreaView, StyleSheet } from 'react-native';
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import ProfileForm from '../components/ProfileForm';
 import { FontAwesome } from '@expo/vector-icons';
 import EmergencyForm from '../components/ECForm';
 import SmCompanionIcon from '../sm-companion-icon';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { UserContext } from '../services/context';
+import methods from '../services/apiServices';
 
 const Profile = ({ navigation }) => {
+  const { user } = useContext(UserContext);
+  console.log(user);
+  useEffect(() => {
+    methods.userRegister(user);
+  });
   return (
     <SafeAreaView style={styles.container}>
       <View style={[styles.topContainer, { alignItems: 'flex-start' }]}>
         <SmCompanionIcon />
       </View>
-      <Text style={styles.titleText}>Hi Savannah</Text>
+      <Text style={styles.titleText}>{user.firstName}</Text>
       <Text style={{ color: 'red', alignSelf: 'flex-start', margin: 17 }}>
         **Please fill out your Emergency Contacts
       </Text>

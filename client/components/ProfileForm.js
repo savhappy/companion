@@ -6,11 +6,14 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Formik } from 'formik';
 import { FontAwesome } from '@expo/vector-icons';
+import { UserContext } from '../services/context';
 
 const ProfileForm = ({ navigation }) => {
+  const { user } = useContext(UserContext);
+
   return (
     <View style={styles.topView}>
       <Formik
@@ -28,33 +31,49 @@ const ProfileForm = ({ navigation }) => {
           <View style={{ flexDirection: 'row' }}>
             <View style={styles.nameContainer}>
               <Text style={styles.profileText}>First Name</Text>
-              <TextInput
-                style={[styles.input]}
-                onChangeText={props.handleChange('firstName')}
-                value={props.values.email}
-              />
+              {user ? (
+                <Text style={styles.smallText}>{user.firstName}</Text>
+              ) : (
+                <TextInput
+                  style={[styles.input]}
+                  onChangeText={props.handleChange('firstName')}
+                  value={props.values.email}
+                />
+              )}
               <Text style={styles.profileText}>Phone Number</Text>
-              <TextInput
-                style={styles.input}
-                placeholder="Phone Number"
-                onChangeText={props.handleChange('phoneNumber')}
-                value={props.values.password}
-              />
+              {user ? (
+                <Text style={styles.smallText}>{user.phoneNumber}</Text>
+              ) : (
+                <TextInput
+                  style={styles.input}
+                  placeholder="Phone Number"
+                  onChangeText={props.handleChange('phoneNumber')}
+                  value={props.values.password}
+                />
+              )}
               <Text style={styles.profileText}>Email</Text>
-              <TextInput
-                style={[styles.input, { width: 200 }]}
-                placeholder="email"
-                onChangeText={props.handleChange('email')}
-                value={props.values.email}
-              />
+              {user ? (
+                <Text style={styles.smallText}>{user.email}</Text>
+              ) : (
+                <TextInput
+                  style={[styles.input, { width: 200 }]}
+                  placeholder="email"
+                  onChangeText={props.handleChange('email')}
+                  value={props.values.email}
+                />
+              )}
             </View>
             <View style={styles.nameContainer}>
               <Text style={styles.profileText}>Last Name</Text>
-              <TextInput
-                style={[styles.input]}
-                onChangeText={props.handleChange('Last Name')}
-                value={props.values.lastName}
-              />
+              {user ? (
+                <Text style={styles.smallText}>{user.lastName}</Text>
+              ) : (
+                <TextInput
+                  style={[styles.input]}
+                  onChangeText={props.handleChange('Last Name')}
+                  value={props.values.lastName}
+                />
+              )}
 
               <TouchableOpacity
                 style={styles.buttonReg}
@@ -96,8 +115,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 24,
   },
-  text: {
-    marginTop: 20,
+  smallText: {
+    marginTop: 5,
+    color: '#D5FFF3',
+    fontSize: 20,
+    fontWeight: '600',
   },
 
   topView: {

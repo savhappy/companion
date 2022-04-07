@@ -29,8 +29,9 @@ exports.postUser = async (req, res) => {
       password: req.body.password,
       phoneNumber: req.body.phoneNumber,
     });
+    console.log(req.body, "created user");
     res.status(201);
-    res.send("user created");
+    res.send(req.body);
   } catch (e) {
     console.log(e);
     res.status = 500;
