@@ -25,9 +25,11 @@ const RegisterForm = ({ navigation }) => {
           password: '',
           phoneNumber: '',
         }}
-        onSubmit={(values) => {
-          setUser(values);
-          // await methods.userRegister(user);
+        onSubmit={async (values) => {
+          const result = await methods.userRegister(values);
+
+          setUser(result);
+          console.log(result, 'result ios here');
           navigation.navigate('Profile');
         }}
       >

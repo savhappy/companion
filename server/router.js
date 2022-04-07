@@ -9,6 +9,6 @@ const controller = require("./controllers/users");
 
 router.post("/user", controller.postUser);
 
-router.post("/emergencyContacts/:id", controller.postEC);
+router.put("/emergencyContacts/:id", controller.postEC);
 
 module.exports = router;

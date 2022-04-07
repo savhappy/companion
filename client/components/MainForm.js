@@ -7,10 +7,12 @@ import {
   Pressable,
   Picker,
 } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import { Formik } from 'formik';
 
 const MainFormCard = ({ modalOpen, setModalOpen }) => {
+  const [selectedHours, setSelectedHours] = useState(0);
+  const [selectedMinutes, setSelectedMinutes] = useState(0);
   return (
     <View style={styles.centeredView}>
       <Modal animationType="slide" transparent={true} visible={modalOpen}>
@@ -74,16 +76,6 @@ const MainFormCard = ({ modalOpen, setModalOpen }) => {
                   >
                     Contacts to Alert
                   </Text>
-                  {/* <Picker
-                    selectedValue={}
-                    style={{ height: 50, width: 150 }}
-                    onValueChange={(itemValue, itemIndex) =>
-                      setSelectedValue(itemValue)
-                    }
-                  >
-                    <Picker.Item label="Java" value="java" />
-                    <Picker.Item label="JavaScript" value="js" />
-                  </Picker> */}
 
                   <TextInput
                     style={[styles.multiInput, { padding: 15 }]}
@@ -99,6 +91,7 @@ const MainFormCard = ({ modalOpen, setModalOpen }) => {
                 </View>
               )}
             </Formik>
+
             <Pressable
               style={[styles.button, styles.buttonClose]}
               onPress={() => setModalOpen(!modalOpen)}

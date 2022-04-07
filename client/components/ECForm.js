@@ -6,23 +6,30 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Formik } from 'formik';
 import { FontAwesome } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { EmergencyContext, UserContext } from '../services/context';
+import methods from '../services/apiServices';
 
 const EmergencyForm = ({ navigation }) => {
-  //Things to add/fix
-  //must store this form as emergency contacts.
+  const { setEc } = useContext(EmergencyContext);
+  const { user } = useContext(UserContext);
+
   return (
-    <View style={styles.topView}>
+    <View style={{ marginTop: 20 }}>
       <Formik
         initialValues={{
           name: '',
           phoneNumber: '',
         }}
-        onSubmit={() => {
-          console.log('I work');
+        onSubmit={async (values, { resetForm }) => {
+          const result = await methods.addEC(user._id, values);
+          console.log(result);
+          setEc((prevEc) => [...prevEc, result]);
+
+          resetForm({ values: { name: '', phoneNumber: '' } });
         }}
       >
         {(props) => (
@@ -31,21 +38,23 @@ const EmergencyForm = ({ navigation }) => {
               style={styles.buttonReg}
               onPress={props.handleSubmit}
             >
-              <Text style={[styles.profileText, { width: 200 }]}>
+              <Text
+                style={[styles.profileText, { width: 200, color: '#D5FFF3' }]}
+              >
                 + Add Emergency Contacts
               </Text>
             </TouchableOpacity>
             <TextInput
               style={styles.input}
               placeholder="Name"
-              onChangeText={props.handleChange('Name')}
-              value={props.values.email}
+              onChangeText={props.handleChange('name')}
+              value={props.values.name}
             />
             <TextInput
               style={[styles.input, { marginTop: 15, marginBottom: 10 }]}
               placeholder="Phone Number"
-              onChangeText={props.handleChange('password')}
-              value={props.values.password}
+              onChangeText={props.handleChange('phoneNumber')}
+              value={props.values.phoneNumber}
             />
           </View>
         )}
@@ -61,6 +70,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#EDF0F7',
     borderRadius: 5,
     marginTop: 5,
+    padding: 8,
   },
   profileText: {
     color: '#ACACAC',

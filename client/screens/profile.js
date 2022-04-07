@@ -4,16 +4,22 @@ import ProfileForm from '../components/ProfileForm';
 import { FontAwesome } from '@expo/vector-icons';
 import EmergencyForm from '../components/ECForm';
 import SmCompanionIcon from '../sm-companion-icon';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { UserContext } from '../services/context';
+import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
+import { EmergencyContext, UserContext } from '../services/context';
 import methods from '../services/apiServices';
 
 const Profile = ({ navigation }) => {
   const { user } = useContext(UserContext);
-  console.log(user);
-  useEffect(() => {
-    methods.userRegister(user);
-  });
+  const { ec } = useContext(EmergencyContext);
+
+  const renderItem = ({ item }) => {
+    return (
+      <View style={styles.flatlistContainer}>
+        <Text style={styles.flatlistText}>{item.name}</Text>
+        <Text style={styles.flatlistText}>{item.phoneNumber}</Text>
+      </View>
+    );
+  };
   return (
     <SafeAreaView style={styles.container}>
       <View style={[styles.topContainer, { alignItems: 'flex-start' }]}>
@@ -26,8 +32,7 @@ const Profile = ({ navigation }) => {
       <View style={styles.PFContainer}>
         <ProfileForm navigation={navigation} />
 
-        <EmergencyForm />
-        <Text style={{ color: '#D5FFF3' }}>View added contacts</Text>
+        <EmergencyForm style={{ marginTop: 20 }} />
         <View style={styles.homeButton}>
           <TouchableOpacity
             onPress={() => {
@@ -38,6 +43,12 @@ const Profile = ({ navigation }) => {
           </TouchableOpacity>
         </View>
       </View>
+      <FlatList
+        data={ec}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.phoneNumber}
+        style={styles.flatlist}
+      />
     </SafeAreaView>
   );
 };
@@ -59,7 +70,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'center',
     width: '90%',
-    height: '55%',
+    height: '50%',
     backgroundColor: 'rgba(172, 172, 172, 0.19)',
     borderRadius: 5,
     marginTop: 10,
@@ -90,6 +101,27 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     margin: 20,
     marginRight: 40,
+  },
+  flatlist: {
+    paddingVertical: 10,
+    width: '100%',
+  },
+  flatlistText: {
+    color: '#D5FFF3',
+    fontSize: 20,
+
+    marginBottom: 5,
+    fontWeight: '400',
+  },
+  flatlistContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 10,
+    width: '90%',
+    alignSelf: 'center',
+    backgroundColor: 'rgba(172, 172, 172, 0.19)',
+    borderRadius: 5,
+    marginTop: 10,
   },
 });
 

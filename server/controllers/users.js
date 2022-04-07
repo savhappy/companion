@@ -22,16 +22,16 @@ const User = require("../models/users");
 
 exports.postUser = async (req, res) => {
   try {
-    await User.create({
+    const result = await User.create({
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       email: req.body.email,
       password: req.body.password,
       phoneNumber: req.body.phoneNumber,
     });
-    console.log(req.body, "created user");
+    console.log(result);
     res.status(201);
-    res.send(req.body);
+    res.send(result);
   } catch (e) {
     console.log(e);
     res.status = 500;
@@ -51,7 +51,7 @@ exports.postEC = async (req, res) => {
 
     console.log(req.body);
     res.status(201);
-    res.send("ec created");
+    res.send(req.body);
   } catch (e) {
     console.log(e);
     res.status = 500;

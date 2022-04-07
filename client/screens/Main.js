@@ -38,7 +38,17 @@ const Main = ({ navigation }) => {
         </TouchableOpacity>
       </View>
 
-      <View style={styles.bottomContainer}>
+      <View
+        style={{
+          backgroundColor: 'rgba(196, 196, 196, 0.06)',
+          // marginTop: 635,
+          marginTop: 95,
+          height: '8%',
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-evenly',
+        }}
+      >
         <TouchableOpacity name="close" onPress={() => setModalOpen(true)}>
           <Image
             style={styles.tinyLogo}

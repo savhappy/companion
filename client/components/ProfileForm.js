@@ -53,7 +53,9 @@ const ProfileForm = ({ navigation }) => {
               )}
               <Text style={styles.profileText}>Email</Text>
               {user ? (
-                <Text style={styles.smallText}>{user.email}</Text>
+                <Text style={[styles.smallText, { width: 300 }]}>
+                  {user.email}
+                </Text>
               ) : (
                 <TextInput
                   style={[styles.input, { width: 200 }]}
@@ -93,6 +95,7 @@ const styles = StyleSheet.create({
   nameContainer: {
     flexDirection: 'column',
     width: '50%',
+    height: '50%',
     paddingLeft: 30,
     alignItems: 'flex-start',
   },
