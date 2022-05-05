@@ -9,10 +9,10 @@ import {
 } from 'react-native';
 import React, { useState } from 'react';
 import { Formik } from 'formik';
+import TimePicker from './timepicker';
+// import RNDateTimePicker from '@react-native-community/datetimepicker';
 
 const MainFormCard = ({ modalOpen, setModalOpen }) => {
-  const [selectedHours, setSelectedHours] = useState(0);
-  const [selectedMinutes, setSelectedMinutes] = useState(0);
   return (
     <View style={styles.centeredView}>
       <Modal animationType="slide" transparent={true} visible={modalOpen}>
@@ -88,10 +88,17 @@ const MainFormCard = ({ modalOpen, setModalOpen }) => {
                     value={props.values.password}
                   />
                   <Text>Check-in Time</Text>
+                  {/* <RNDateTimePicker
+                    mode="time"
+                    value={props.values.time}
+                    is24Hour={true}
+                    onChange={props.handleChange('time')}
+                    style={styles.datePicker}
+                  /> */}
                 </View>
               )}
             </Formik>
-
+            <TimePicker />
             <Pressable
               style={[styles.button, styles.buttonClose]}
               onPress={() => setModalOpen(!modalOpen)}
@@ -170,6 +177,13 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 5,
     fontWeight: '400',
+  },
+  datePicker: {
+    width: 320,
+    height: 260,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
   },
 });
 
